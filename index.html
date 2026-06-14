@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accra Technical University - Student Registration</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.92);
+            --glass-border: rgba(255, 255, 255, 0.7);
+            --accent: #1a3c6e;
+            --blue-accent: #0a6cf0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(rgba(10, 31, 61, 0.75), rgba(10, 31, 61, 0.75)), 
+                        url('https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1287&auto=format&fit=crop') center/cover no-repeat fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            padding: 1.5rem;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .university-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .university-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.4rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #444;
+            font-size: 1rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .divider {
+            height: 4px;
+            background: var(--blue-accent);
+            margin: 1.5rem 0;
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        label {
+            display: block;
+            color: #333;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 0.6rem;
+            text-transform: uppercase;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1.5px solid #ddd;
+            border-radius: 16px;
+            color: #1a1a1a;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        input::placeholder {
+            color: #999;
+        }
+
+        .error {
+            color: #d32f2f;
+            font-size: 0.85rem;
+            margin-top: 6px;
+            display: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        button:hover {
+            background: #333;
+        }
+
+        .signin-link {
+            text-align: center;
+            margin-top: 1.8rem;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .signin-link a {
+            color: var(--accent);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        /* Verification Popup */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 31, 61, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 2.8rem 2rem;
+            text-align: center;
+            max-width: 360px;
+            width: 90%;
+        }
+
+        .success-icon {
+            font-size: 4.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content h2 {
+            color: #1a1a1a;
+            font-size: 1.75rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .modal-content p {
+            color: #444;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .close-btn {
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 16px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <!-- University Header -->
+            <div class="university-header">
+                <div class="university-name">ACCRA TECHNICAL UNIVERSITY</div>
+            </div>
+
+            <h1>Student Registration</h1>
+            <p class="subtitle">Please fill in your details below</p>
+            
+            <div class="divider"></div>
+
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" placeholder="Enter your full name" required>
+                    <div class="error" id="nameError"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email address" required>
+                    <div class="error" id="emailError"></div>
+                </div>
+
+                <button type="submit">SUBMIT</button>
+            </form>
+
+            <div class="signin-link">
+                Already registered? <a href="#">Sign in here</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Verification Popup -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <span class="success-icon">🎉</span>
+            <h2>Registration Successful!</h2>
+            <p>Your account has been verified.<br>Welcome to Accra Technical University Portal!</p>
+            <button class="close-btn" onclick="closeModal()">Continue to Dashboard</button>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('registrationForm');
+        const fullNameInput = document.getElementById('fullName');
+        const emailInput = document.getElementById('email');
+        const nameError = document.getElementById('nameError');
+        const emailError = document.getElementById('emailError');
+        const modal = document.getElementById('successModal');
+
+        function clearErrorOnInput(input, errorEl) {
+            input.addEventListener('input', () => {
+                errorEl.style.display = 'none';
+            });
+        }
+
+        clearErrorOnInput(fullNameInput, nameError);
+        clearErrorOnInput(emailInput, emailError);
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let isValid = true;
+
+            nameError.style.display = 'none';
+            emailError.style.display = 'none';
+
+            if (fullNameInput.value.trim() === '') {
+                nameError.textContent = 'Full Name is required.';
+                nameError.style.display = 'block';
+                isValid = false;
+            }
+
+            if (emailInput.value.trim() === '') {
+                emailError.textContent = 'Email Address is required.';
+                emailError.style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                modal.style.display = 'flex';
+                form.reset();
+            }
+        });
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) closeModal();
+        });
+
+        emailInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                form.dispatchEvent(new Event('submit'));
+            }
+        });
+    </script>
+</body>
+</html>
